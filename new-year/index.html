@@ -274,12 +274,22 @@
             particles[a] = randomizeParticle(new Particle());
             particles[a].z -= 500 * Math.random()
         }
-        document.addEventListener("mousemove", function(d) {
+
+        document.addEventListener("mousemove", (d) => {
             mouseX = d.clientX;
             mouseY = d.clientY
         }, false);
-        document.addEventListener("mousedown", () => targetSpeed = BOOST_SPEED, false);
-        document.addEventListener("mouseup", () => targetSpeed = DEFAULT_SPEED, false);
+        document.addEventListener("touchmove", (e) => {
+            let d = e.changedTouches[0];
+            mouseX = d.clientX;
+            mouseY = d.clientY
+        }, false);
+
+        ['touchstart', 'mousedown'].forEach(i =>
+            document.addEventListener(i, () => targetSpeed = BOOST_SPEED, false));
+        ['touchend', 'mouseup'].forEach(i =>
+            document.addEventListener(i, () => targetSpeed = DEFAULT_SPEED, false));
+
         setInterval(loop, 1000 / 60)
     }, false);
     function loop() {
