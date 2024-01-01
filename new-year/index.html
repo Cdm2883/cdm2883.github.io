@@ -290,18 +290,19 @@
 </script>
 <script>
     let parallaxEnabled = false;
-    document.getElementById('cdm2883').addEventListener('click', function (e) {
-        parallaxEnabled = !parallaxEnabled;
-        ((l) => parallaxEnabled ? l.add('enabled') : l.remove('enabled'))
-            (this.classList)
-        document.querySelectorAll('.layer').forEach(layer => {
-            let duration = .2;
-            layer.style.transition = `transform ${duration}s ease-out`
-            if (!parallaxEnabled) layer.style.transform = '';
-            setTimeout(() => layer.style.transition = '', duration * 1000);
-        });
-        if (parallaxEnabled) parallax(e);
-    })
+    if (!window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
+        document.getElementById('cdm2883').addEventListener('click', function (e) {
+            parallaxEnabled = !parallaxEnabled;
+            ((l) => parallaxEnabled ? l.add('enabled') : l.remove('enabled'))
+                (this.classList)
+            document.querySelectorAll('.layer').forEach(layer => {
+                let duration = .2;
+                layer.style.transition = `transform ${duration}s ease-out`
+                if (!parallaxEnabled) layer.style.transform = '';
+                setTimeout(() => layer.style.transition = '', duration * 1000);
+            });
+            if (parallaxEnabled) parallax(e);
+        })
     document.addEventListener('mousemove', parallax);
     function parallax({pageX, pageY}) {
         if (parallaxEnabled) document.querySelectorAll('.layer').forEach(layer => {
